@@ -79,16 +79,19 @@ if __name__ == '__main__':
     print(king.display())
     king.set_weapon(AxeBehaviour)
     print(king.fight())
+    
     print(colored('----------------------- QUEEN -----------------------', 'red'))
     queen = Queen()
     print(queen.display())
     queen.set_weapon(BowandArrowBehaviour)
     print(queen.fight())
+
     print(colored('----------------------- KNIGHT ----------------------', 'green'))
     knight = Knight()
     print(knight.display())
     knight.set_weapon(SwordBehaviour)
     print(knight.fight())
+
     print(colored('----------------------- TROLL -----------------------', 'yellow'))
     troll = Troll()
     print(troll.display())
