@@ -3,8 +3,11 @@ from abc import ABC, abstractmethod
 from termcolor import colored
 
 class Character():
-    def __init__(self):
-        self.weapon_behaviour = None
+    def __init__(self, weapon_behaviour: WeaponBehaviour):
+        self.weapon_behaviour = weapon_behaviour
+
+    def display()-> str:
+        pass
 
     def set_weapon(self, weapon_behaviour: WeaponBehaviour):
         self.weapon_behaviour = weapon_behaviour
@@ -31,7 +34,7 @@ class KnifeBehaviour(WeaponBehaviour):
     def use_weapon(self)-> str:
         return 'Implements cutting with a knife'
 
-class BowandArrowBehaviour(WeaponBehaviour):
+class BowAndArrowBehaviour(WeaponBehaviour):
     def __init__(self):
         pass
 
@@ -46,54 +49,51 @@ class AxeBehaviour(WeaponBehaviour):
         return 'Implements chopping with an axe'
 
 class King(Character):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, weapon_behaviour):
+        super().__init__(weapon_behaviour)
 
     def display(self)-> str:
-        return 'I am a king!'
+        return 'I am a King!'
 
 class Queen(Character):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, weapon_behaviour):
+        super().__init__(weapon_behaviour)
 
     def display(self)-> str:
         return 'I am a Queen!'
 
 class Knight(Character):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, weapon_behaviour):
+        super().__init__(weapon_behaviour)
 
     def display(self)-> str:
         return 'I am a Knight!'
 
 class Troll(Character):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, weapon_behaviour):
+        super().__init__(weapon_behaviour)
 
     def display(self)-> str:
         return 'I am a Troll!'
 
 if __name__ == '__main__':
     print(colored('------------------------ KING -----------------------', 'blue'))
-    king = King()
+    king = King(AxeBehaviour)
     print(king.display())
-    king.set_weapon(AxeBehaviour)
     print(king.fight())
     
     print(colored('----------------------- QUEEN -----------------------', 'red'))
-    queen = Queen()
+    queen = Queen(BowAndArrowBehaviour)
     print(queen.display())
-    queen.set_weapon(BowandArrowBehaviour)
     print(queen.fight())
 
     print(colored('----------------------- KNIGHT ----------------------', 'green'))
-    knight = Knight()
+    knight = Knight(SwordBehaviour)
     print(knight.display())
-    knight.set_weapon(SwordBehaviour)
     print(knight.fight())
 
     print(colored('----------------------- TROLL -----------------------', 'yellow'))
-    troll = Troll()
+    troll = Troll(SwordBehaviour)
     print(troll.display())
     troll.set_weapon(KnifeBehaviour)
     print(troll.fight())
