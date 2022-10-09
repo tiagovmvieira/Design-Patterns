@@ -147,11 +147,41 @@ class ForecastDisplay(Observer, DisplayElement):
     def display(self)-> str:
         return f"Forecast: {self.__get_forecast()}"
 
+class HeatIndexDisplay(Observer, DisplayElement):
+    def __init__(self, weather_data: WeatherData):
+        self.weather_data = weather_data
+        self.weather_data.register_observer(self)
+
+    def update(self, temperature: float, humidity: float, pressure: float):
+        self.temperature = temperature
+        self.humidity = humidity
+        self.pressure = pressure
+        self.display()
+
+    def __get_heat_index(self)-> float:
+        t = self.temperature
+        rh = self.humidity
+
+        heat_index = ((16.923 + (0.185212 * t) + (5.37941 * rh) - (0.100254 * t * rh) +
+		(0.00941695 * (t * t)) + (0.00728898 * (rh * rh)) +
+		(0.000345372 * (t * t * rh)) - (0.000814971 * (t * rh * rh)) +
+		(0.0000102102 * (t * t * rh * rh)) - (0.000038646 * (t * t * t)) + (0.0000291583 *  
+		(rh * rh * rh)) + (0.00000142721 * (t * t * t * rh)) +
+		(0.000000197483 * (t * rh * rh * rh)) - (0.0000000218429 * (t * t * t * rh * rh)) +     
+		0.000000000843296 * (t * t * rh * rh * rh)) -
+		(0.0000000000481975 * (t * t * t * rh * rh * rh)))
+
+        return heat_index
+
+    def display(self)-> str:
+        return f"Heat Index: {self.__get_heat_index()}"
+
 if __name__ == '__main__':
     weather_data = WeatherData()
     current_conditions_display = CurrentConditionsDisplay(weather_data)
     statistics_display = StatisticsDisplay(weather_data)
     forecast_display = ForecastDisplay(weather_data)
+    heat_index_display = HeatIndexDisplay(weather_data)
 
     weather_data.set_measurements(80, 65, 1)
     print(colored('------------- CURRENT CONDITIONS DISPLAY ------------', 'red'))
@@ -159,7 +189,9 @@ if __name__ == '__main__':
     print(colored('----------------- STATISTICS DISPLAY ----------------', 'blue'))
     print(statistics_display.display())
     print(colored('----------------- FORECAST DISPLAY -----------------', 'green'))
-    print(forecast_display.display(),'\n')
+    print(forecast_display.display())
+    print(colored('---------------- HEAT INDEX DISPLAY ----------------', 'yellow'))
+    print(heat_index_display.display(),'\n')
 
     weather_data.set_measurements(82, 70, 0.98)
     print(colored('------------- CURRENT CONDITIONS DISPLAY ------------', 'red'))
@@ -167,12 +199,16 @@ if __name__ == '__main__':
     print(colored('----------------- STATISTICS DISPLAY ----------------', 'blue'))
     print(statistics_display.display())
     print(colored('----------------- FORECAST DISPLAY -----------------', 'green'))
-    print(forecast_display.display(),'\n')
+    print(forecast_display.display())
+    print(colored('---------------- HEAT INDEX DISPLAY ----------------', 'yellow'))
+    print(heat_index_display.display(),'\n')
 
     weather_data.set_measurements(78, 90, 1.03)
     print(colored('------------- CURRENT CONDITIONS DISPLAY ------------', 'red'))
     print(current_conditions_display.display())
     print(colored('----------------- STATISTICS DISPLAY ----------------', 'blue'))
-    print(statistics_display.display(),'\n')
+    print(statistics_display.display())
     print(colored('----------------- FORECAST DISPLAY -----------------', 'green'))
     print(forecast_display.display())
+    print(colored('---------------- HEAT INDEX DISPLAY ----------------', 'yellow'))
+    print(heat_index_display.display(),'\n')
