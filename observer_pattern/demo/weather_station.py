@@ -177,6 +177,8 @@ class HeatIndexDisplay(Observer, DisplayElement):
         return f"Heat Index: {self.__get_heat_index()}"
 
 if __name__ == '__main__':
+    print(colored('------------------ OBSERVER PATTERN -----------------', 'white'))
+    print(colored('------------------- SUBJECT PUSHS -------------------', 'white'))
     weather_data = WeatherData()
     current_conditions_display = CurrentConditionsDisplay(weather_data)
     statistics_display = StatisticsDisplay(weather_data)
