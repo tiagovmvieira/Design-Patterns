@@ -77,6 +77,7 @@ class Troll(Character):
         return 'I am a Troll!'
 
 if __name__ == '__main__':
+    print(colored('------------------ STRATEGY PATTERN ----------------', 'white'))
     print(colored('------------------------ KING -----------------------', 'blue'))
     king = King(AxeBehaviour)
     print(king.display())
