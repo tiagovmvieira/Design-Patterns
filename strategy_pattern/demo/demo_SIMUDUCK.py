@@ -107,6 +107,7 @@ class DecoyDuck(Duck):
         return 'Looks like a Decoy Duck!'
 
 if __name__ == '__main__':
+    print(colored('----------------- STRATEGY PATTERN ----------------', 'white'))
     print(colored('-------------------- MALLARD DUCK -------------------', 'red'))
     mallard_duck = MallardDuck(FlyWithWings, Quack)
     print(mallard_duck.display())
