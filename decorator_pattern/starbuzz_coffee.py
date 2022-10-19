@@ -8,7 +8,7 @@ class Beverage():
         return self.description
 
     def cost(self)-> int:
-        return 0
+        return 0 #if we want to apply a base price for each beverage, we should update this value
 
 class CondimentDecorator(Beverage):
     def __init__(self, beverage: Beverage)-> None:
@@ -57,7 +57,7 @@ class SteamedMilk(CondimentDecorator):
         super().__init__(beverage)
 
     def get_description(self)-> str:
-        return self.beverage.get_description() + ", Steamed Milk"
+        return self.beverage.get_description() + ", Steamed Milk" if self.beverage.get_description() != "" else "Steamed Milk"
 
     def cost(self)-> float:
         return self.beverage.cost() + 0.10
@@ -115,6 +115,12 @@ if __name__ == '__main__':
     print(house_blend.get_description())
     print(house_blend.cost(), '€','\n')
 
+    print(colored('---------------- SIMPLE STEAMED MILK ----------------', 'yellow'))
+    steamed_milk = Beverage('')
+    steamed_milk = SteamedMilk(steamed_milk)
+    print(steamed_milk.get_description())
+    print(steamed_milk.cost(), '€','\n')
+    
     print(colored('-------------------- SIMPLE MOCHA -------------------', 'yellow'))
     mocha = Beverage('')
     mocha = Mocha(mocha)
