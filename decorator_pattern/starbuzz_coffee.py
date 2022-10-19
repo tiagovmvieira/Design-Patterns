@@ -7,8 +7,8 @@ class Beverage():
     def get_description(self)-> str:
         return self.description
 
-    def cost(self)-> None:
-        pass
+    def cost(self)-> int:
+        return 0
 
 class CondimentDecorator(Beverage):
     def __init__(self, beverage: Beverage)-> None:
@@ -21,7 +21,7 @@ class CondimentDecorator(Beverage):
     def get_description(self) -> str:
         return self.get_description()
         
-    def cost(self)-> int:
+    def cost(self)-> float:
         return self.beverage.cost()
 
 class HouseBlend(Beverage):
@@ -67,7 +67,7 @@ class Mocha(CondimentDecorator):
         super().__init__(beverage)
 
     def get_description(self)-> str:
-        return self.beverage.get_description() + ", Mocha"
+        return self.beverage.get_description() + ", Mocha" if self.beverage.get_description() != "" else "Mocha"
 
     def cost(self)-> float:
         return self.beverage.cost() + 0.20
@@ -77,7 +77,7 @@ class Soy(CondimentDecorator):
         super().__init__(beverage)
 
     def get_description(self)-> str:
-        return self.beverage.get_description() + ", Soy"
+        return self.beverage.get_description() + ", Soy" if self.beverage.get_description() != "" else "Soy"
 
     def cost(self)-> float:
         return self.beverage.cost() + 0.15
@@ -87,7 +87,7 @@ class Whip(CondimentDecorator):
         super().__init__(beverage)
 
     def get_description(self)-> str:
-        return self.beverage.get_description() + ", Whip"
+        return self.beverage.get_description() + ", Whip" if self.beverage.get_description() != "" else "Whip"
 
     def cost(self)-> float:
         return self.beverage.cost() + 0.10 
@@ -113,4 +113,22 @@ if __name__ == '__main__':
     house_blend = Mocha(house_blend)
     house_blend = SteamedMilk(house_blend)
     print(house_blend.get_description())
-    print(house_blend.cost(), '€')
+    print(house_blend.cost(), '€','\n')
+
+    print(colored('-------------------- SIMPLE MOCHA -------------------', 'yellow'))
+    mocha = Beverage('')
+    mocha = Mocha(mocha)
+    print(mocha.get_description())
+    print(mocha.cost(), '€','\n')
+
+    print(colored('--------------------- SIMPLE SOY --------------------', 'yellow'))
+    soy = Beverage('')
+    soy = Soy(soy)
+    print(soy.get_description())
+    print(soy.cost(), '€','\n')
+
+    print(colored('-------------------- SIMPLE WHIP --------------------', 'yellow'))
+    whip = Beverage('')
+    whip = Whip(whip)
+    print(whip.get_description())
+    print(whip.cost(), '€')
