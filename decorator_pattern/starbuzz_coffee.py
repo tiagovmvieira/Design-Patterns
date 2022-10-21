@@ -1,6 +1,5 @@
 from termcolor import colored
 from enum import Enum
-import sys
 
 class SizeEnum(Enum):
     TALL = 'tall'
@@ -31,6 +30,12 @@ class CondimentDecorator(Beverage):
     @Beverage
     def beverage(self)-> Beverage:
         return self.beverage
+
+    def set_size(self, size: SizeEnum)-> None:
+        self.size = size
+
+    def get_size(self)-> SizeEnum:
+        return self.beverage.get_size()
     
     def get_description(self) -> str:
         return self.get_description()
@@ -124,7 +129,7 @@ class Whip(CondimentDecorator):
     def cost(self)-> float:
         base_beverage_cost = self.beverage.cost()
         if self.beverage.get_size() == SizeEnum.VENTI:
-            return base_beverage_cost + 0.7
+            return base_beverage_cost + 0.07
         elif self.beverage.get_size() == SizeEnum.GRANDE:
             return base_beverage_cost + 0.10
         elif self.beverage.get_size() == SizeEnum.TALL:
@@ -135,7 +140,7 @@ if __name__ == '__main__':
     print(colored('--------------------- EXPRESSO ----------------------', 'blue'))
     expresso = Expresso()
     print(expresso.get_description())
-    print(expresso.cost(), "€", '\n')
+    print(f"{expresso.cost():.2f}", "€", '\n')
 
     print(colored('--------------------- DARK ROAST --------------------', 'red'))
     dark_roast = DarkRoast()
@@ -143,7 +148,7 @@ if __name__ == '__main__':
     dark_roast = Mocha(dark_roast)
     dark_roast = Whip(dark_roast)
     print(dark_roast.get_description())
-    print(dark_roast.cost(), "€",'\n')
+    print(f"{dark_roast.cost():.2f}", "€",'\n')
 
     print(colored('-------------------- HOUSE BLEND --------------------', 'green'))
     house_blend = HouseBlend()
@@ -152,27 +157,40 @@ if __name__ == '__main__':
     house_blend = Mocha(house_blend)
     house_blend = SteamedMilk(house_blend)
     print(house_blend.get_description())
-    print(house_blend.cost(), '€','\n')
+    print(f"{house_blend.cost():.2f}", '€','\n')
 
-    print(colored('---------------- SIMPLE STEAMED MILK ----------------', 'yellow'))
+    print(colored('----------------------- DECAF -----------------------', 'yellow'))
+    decaf = Decaf()
+    decaf.set_size(SizeEnum.GRANDE)
+    decaf = Soy(decaf)
+    decaf = Mocha(decaf)
+    decaf = SteamedMilk(decaf)
+    decaf = Whip(decaf)
+    print(decaf.get_description())
+    print(f"{decaf.cost():.2f}", '€', '\n')
+
+    print(colored('---------------- SIMPLE STEAMED MILK ----------------', 'grey'))
     steamed_milk = Beverage('')
+    steamed_milk.set_size(SizeEnum.GRANDE)
     steamed_milk = SteamedMilk(steamed_milk)
     print(steamed_milk.get_description())
-    print(steamed_milk.cost(), '€','\n')
+    print(f"{steamed_milk.cost():.2f}", '€','\n')
     
-    print(colored('-------------------- SIMPLE MOCHA -------------------', 'yellow'))
+    print(colored('-------------------- SIMPLE MOCHA -------------------', 'grey'))
     mocha = Beverage('')
+    mocha.set_size(SizeEnum.TALL)
     mocha = Mocha(mocha)
     print(mocha.get_description())
     print(mocha.cost(), '€','\n')
 
-    print(colored('--------------------- SIMPLE SOY --------------------', 'yellow'))
+    print(colored('--------------------- SIMPLE SOY --------------------', 'grey'))
     soy = Beverage('')
+    soy.set_size(SizeEnum.VENTI)
     soy = Soy(soy)
     print(soy.get_description())
     print(soy.cost(), '€','\n')
 
-    print(colored('-------------------- SIMPLE WHIP --------------------', 'yellow'))
+    print(colored('-------------------- SIMPLE WHIP --------------------', 'grey'))
     whip = Beverage('')
     whip = Whip(whip)
     print(whip.get_description())
