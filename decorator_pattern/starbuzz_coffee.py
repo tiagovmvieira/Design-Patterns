@@ -39,9 +39,6 @@ class CondimentDecorator(Beverage):
     
     def get_description(self) -> str:
         return self.get_description()
-        
-    def cost(self)-> float:
-        return self.beverage.cost()
 
 class HouseBlend(Beverage):
     def __init__(self, description: str = "House Blend Coffee")-> None:
