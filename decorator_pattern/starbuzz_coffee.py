@@ -192,6 +192,7 @@ if __name__ == '__main__':
 
     print(colored('-------------------- SIMPLE WHIP --------------------', 'grey'))
     whip = Beverage('')
+    print('Size', whip.get_size())
     whip = Whip(whip)
     print(whip.get_description())
     print(whip.cost(), '€')
