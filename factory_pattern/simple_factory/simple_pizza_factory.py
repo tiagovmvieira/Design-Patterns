@@ -1,15 +1,15 @@
 from termcolor import colored
 
 class PizzaStore():
-    def __init__(self)-> None:
-        self.pizza = SimplePizzaFactory()
+    def __init__(self, pizza_factory_name: str)-> None:
+        self.pizza_factory = SimplePizzaFactory(pizza_factory_name)
 
     def order_pizza(self, pizza_name: str):
-        return self.pizza.make_pizza(pizza_name)
+        return self.pizza_factory.make_pizza(pizza_name)
 
 class SimplePizzaFactory():
-    def __init__(self)-> None:
-        pass
+    def __init__(self, pizza_factory_name: str)-> None:
+        self.pizza_factory_name = pizza_factory_name
 
     def make_pizza(self, pizza_name: str):
         if pizza_name == "CheesePizza":
@@ -56,7 +56,7 @@ class PepperoniPizza(Pizza):
 if __name__ == '__main__':
     print(colored('------------------ SIMPLE FACTORY -----------------', 'white'))
     print(colored('----------------- ROME PIZZA STORE ----------------', 'white'))
-    rome_pizza_store = PizzaStore()
+    rome_pizza_store = PizzaStore("Milan Pizza Factory")
 
     print(colored('------------------- CHEESE PIZZA ------------------', 'blue'))
     cheese_pizza = rome_pizza_store.order_pizza("CheesePizza")
