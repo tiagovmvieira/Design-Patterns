@@ -18,7 +18,7 @@ class NYStylePizzaStore(PizzaStore):
     def __init__(self):
         super().__init__()
 
-    def create_pizza(self, pizza_name: str):
+    def create_pizza(self, pizza_name: str)-> Pizza:
         if pizza_name == "CheesePizza":
             return NYStyleCheesePizza()
         elif pizza_name == "PepperoniPizza":
@@ -32,7 +32,7 @@ class ChicagoStylePizzaStore(PizzaStore):
     def __init__(self):
         super().__init__()
 
-    def create_pizza(self, pizza_name: str):
+    def create_pizza(self, pizza_name: str)-> Pizza:
         if pizza_name == "CheesePizza":
             return ChicagoStyleCheesePizza()
         elif pizza_name == "PepperoniPizza":
@@ -41,6 +41,20 @@ class ChicagoStylePizzaStore(PizzaStore):
             return ChicagoStyleClamPizza()
         elif pizza_name == "VeggiePizza":
             return ChicagoStyleVeggiePizza()
+
+class CaliforniaStylePizzaStore(PizzaStore):
+    def __init__(self):
+        super().__init__()
+
+    def create_pizza(self, pizza_name: str)-> Pizza:
+        if pizza_name == "CheesePizza":
+            return CaliforniaStyleCheesePizza()
+        elif pizza_name == "PepperoniPizza":
+            return CaliforniaStylePepperoniPizza()
+        elif pizza_name == "ClamPizza":
+            return CaliforniaStyleClamPizza()
+        elif pizza_name == "VeggiePizza":
+            return CaliforniaStyleVeggiePizza()
 
 class Pizza():
     def __init__(self, name: str)-> None:
@@ -90,6 +104,22 @@ class ChicagoStyleVeggiePizza(Pizza):
     def __init__(self, name="ChicagoStyleVeggiePizza"):
         super().__init__(name)
 
+class CaliforniaStyleCheesePizza(Pizza):
+    def __init__(self, name="CaliforniaStyleCheesePizza"):
+        super().__init__(name)
+
+class CaliforniaStylePepperoniPizza(Pizza):
+    def __init__(self, name="CaliforniaStylePepperoniPizza"):
+        super().__init__(name)
+
+class CaliforniaStyleClamPizza(Pizza):
+    def __init__(self, name="CaliforniaStyleClamPizza"):
+        super().__init__(name)
+
+class CaliforniaStyleVeggiePizza(Pizza):
+    def __init__(self, name="CaliforniaStyleVeggiePizza"):
+        super().__init__(name)
+
 if __name__ == '__main__':
     print(colored('----------------- FACTORY PATTERN -----------------', 'white'))
     print(colored('-------------- NEW YORK PIZZA STORE ---------------', 'white'))
@@ -136,3 +166,21 @@ if __name__ == '__main__':
     print(ch_pepperoni_pizza.cut())
     print(ch_pepperoni_pizza.box(),'\n')
 
+    print(colored('------------- CALIFORNIA PIZZA STORE --------------', 'white'))
+    california_pizza_store = CaliforniaStylePizzaStore()
+
+    print(colored('------------------- CHEESE PIZZA ------------------', 'blue'))
+    ca_cheese_pizza = california_pizza_store.order_pizza("CheesePizza")
+    print(ca_cheese_pizza.box(),'\n')
+
+    print(colored('------------------- VEGGIE PIZZA ------------------', 'yellow'))
+    ca_veggie_pizza = california_pizza_store.order_pizza("VeggiePizza")
+    print(ny_veggie_pizza.box(),'\n')
+
+    print(colored('-------------------- CLAM PIZZA -------------------', 'green'))
+    ca_clam_pizza = california_pizza_store.order_pizza("ClamPizza")
+    print(ca_clam_pizza.box(),'\n')
+
+    print(colored('----------------- PEPPERONI PIZZA -----------------', 'red'))
+    ca_pepperoni_pizza = california_pizza_store.order_pizza("ClamPizza")
+    print(ca_pepperoni_pizza.box(),'\n')
