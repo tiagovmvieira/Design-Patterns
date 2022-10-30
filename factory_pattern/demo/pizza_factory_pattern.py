@@ -1,10 +1,11 @@
 from __future__ import annotations
 from termcolor import colored
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
-class PizzaStore():
-    def __init__(self)-> None:
-        pass
+class PizzaStore(ABC):
+    def __init__(self):
+        if self.__class__ == PizzaStore:
+            raise TypeError("Instantiating the Abstract Class")
 
     def order_pizza(self, pizza_name: str)-> Pizza:
         pizza = self.create_pizza(pizza_name)
@@ -56,7 +57,7 @@ class CaliforniaStylePizzaStore(PizzaStore):
         elif pizza_name == "VeggiePizza":
             return CaliforniaStyleVeggiePizza()
 
-class Pizza():
+class Pizza(ABC):
     def __init__(self, name: str)-> None:
         self.name = name
 
