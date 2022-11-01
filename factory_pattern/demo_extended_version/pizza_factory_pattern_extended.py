@@ -26,13 +26,13 @@ class NYStylePizzaStore(PizzaStore):
 
     def create_pizza(self, pizza_name: str)-> Pizza:
         if pizza_name == "CheesePizza":
-            return NYStyleCheesePizza()
+            return NYStyleCheesePizza(ingredient_factory = NYPizzaIngredientFactory())
         elif pizza_name == "PepperoniPizza":
-            return NYStylePepperoniPizza()
+            return NYStylePepperoniPizza(ingredient_factory = NYPizzaIngredientFactory())
         elif pizza_name == "ClamPizza":
-            return NYStyleClamPizza()
+            return NYStyleClamPizza(ingredient_factory = NYPizzaIngredientFactory())
         elif pizza_name == "VeggiePizza":
-            return NYStyleVeggiePizza()
+            return NYStyleVeggiePizza(ingredient_factory = NYPizzaIngredientFactory())
 
 class ChicagoStylePizzaStore(PizzaStore):
     def __init__(self):
@@ -40,13 +40,27 @@ class ChicagoStylePizzaStore(PizzaStore):
 
     def create_pizza(self, pizza_name: str)-> Pizza:
         if pizza_name == "CheesePizza":
-            return ChicagoStyleCheesePizza()
+            return ChicagoStyleCheesePizza(ingredient_factory = ChicagoPizzaIngredientFactory())
         elif pizza_name == "PepperoniPizza":
-            return ChicagoStylePepperoniPizza()
+            return ChicagoStylePepperoniPizza(ingredient_factory = ChicagoPizzaIngredientFactory())
         elif pizza_name == "ClamPizza":
-            return ChicagoStyleClamPizza()
+            return ChicagoStyleClamPizza(ingredient_factory = ChicagoPizzaIngredientFactory())
         elif pizza_name == "VeggiePizza":
-            return ChicagoStyleVeggiePizza()
+            return ChicagoStyleVeggiePizza(ingredient_factory = ChicagoPizzaIngredientFactory())
+
+class CaliforniaStylePizzaStore(PizzaStore):
+    def __init__(self):
+        super().__init__()
+
+    def create_pizza(self, pizza_name: str)-> Pizza:
+        if pizza_name == "CheesePizza":
+            return CaliforniaStyleCheesePizza(ingredient_factory = CaliforniaPizzaIngredientFactory())
+        elif pizza_name == "PepperoniPizza":
+            return CaliforniaStylePepperoniPizza(ingredient_factory = CaliforniaPizzaIngredientFactory())
+        elif pizza_name == "ClamPizza":
+            return CaliforniaStyleClamPizza(ingredient_factory = CaliforniaPizzaIngredientFactory())
+        elif pizza_name == "VeggiePizza":
+            return CaliforniaStyleVeggiePizza(ingredient_factory = CaliforniaPizzaIngredientFactory())
 
 class PizzaIngredientsFactory(ABC):
     @abstractmethod
@@ -58,7 +72,7 @@ class PizzaIngredientsFactory(ABC):
         pass
 
     @abstractmethod
-    def create_cheeses():
+    def create_cheese():
         pass
 
     @abstractmethod
@@ -83,7 +97,7 @@ class NYPizzaIngredientFactory(PizzaIngredientsFactory):
     def create_sauce(self):
         return MarinaraSauce()
 
-    def create_cheeses(self):
+    def create_cheese(self):
         return ReggianoCheese()
 
     def create_pepperoni(self):
@@ -106,19 +120,42 @@ class ChicagoPizzaIngredientFactory(PizzaIngredientsFactory):
     def create_sauce(self):
         return PlumTomatoSauce()
 
-    def create_cheeses(self)-> List:
+    def create_cheese(self)-> List:
         cheeses = [Mozzarella(), Parmesan()]
         return cheeses
 
     def create_pepperoni(self):
         return SlicedPepperoni()
 
-    def create_veggies()-> List[PizzaIngredient]:
+    def create_veggies(self)-> List[PizzaIngredient]:
         veggies = [Oregano(), Eggplant(), Spinach(), BlackOlives()]
         return veggies
 
     def create_clam(self):
-        return Clams()
+        return FrozenClams()
+
+class CaliforniaPizzaIngredientFactory(PizzaIngredientsFactory):
+    def __init__(self):
+        pass
+
+    def create_dough(self):
+        return VeryThinCrustDough()
+
+    def create_sauce(self):
+        return BruschettaSauce()
+
+    def create_cheese(self):
+        return GoatCheese()
+
+    def create_pepperoni(self):
+        return SlicedPepperoni()
+        
+    def create_veggies(self)-> List[PizzaIngredient]:
+        veggies = [Tomato(), Eggplant(), Mushrooms(), BlackOlives()]
+        return veggies
+
+    def create_clam(self):
+        return FreshClams()
 
 if __name__ == '__main__':
     print(colored('----------------- FACTORY PATTERN -----------------', 'white'))
@@ -152,3 +189,65 @@ if __name__ == '__main__':
     print(ny_pepperoni_pizza.bake())
     print(ny_pepperoni_pizza.cut())
     print(ny_pepperoni_pizza.box(),'\n')
+
+    print(colored('-------------- CHICAGO PIZZA STORE ----------------', 'white'))
+    ch_pizza_store = ChicagoStylePizzaStore()
+
+    print(colored('------------------- CHEESE PIZZA ------------------', 'blue'))
+    ch_cheese_pizza = ch_pizza_store.order_pizza("CheesePizza")
+    print(ch_cheese_pizza.prepare())
+    print(ch_cheese_pizza.bake())
+    print(ch_cheese_pizza.cut())
+    print(ch_cheese_pizza.box(),'\n')
+
+    print(colored('------------------- VEGGIE PIZZA ------------------', 'yellow'))
+    ch_veggie_pizza = ch_pizza_store.order_pizza("VeggiePizza")
+    print(ch_veggie_pizza.prepare())
+    print(ch_veggie_pizza.bake())
+    print(ch_veggie_pizza.cut())
+    print(ch_veggie_pizza.box(),'\n')
+
+    print(colored('-------------------- CLAM PIZZA -------------------', 'green'))
+    ch_clam_pizza = ch_pizza_store.order_pizza("ClamPizza")
+    print(ch_clam_pizza.prepare())
+    print(ch_clam_pizza.bake())
+    print(ch_clam_pizza.cut())
+    print(ch_clam_pizza.box(),'\n')
+
+    print(colored('----------------- PEPPERONI PIZZA -----------------', 'red'))
+    ch_pepperoni_pizza = ch_pizza_store.order_pizza("PepperoniPizza")
+    print(ch_pepperoni_pizza.prepare())
+    print(ch_pepperoni_pizza.bake())
+    print(ch_pepperoni_pizza.cut())
+    print(ch_pepperoni_pizza.box(),'\n')
+
+    print(colored('------------- CALIFORNIA PIZZA STORE --------------', 'white'))
+    ca_pizza_store = CaliforniaStylePizzaStore()
+
+    print(colored('------------------- CHEESE PIZZA ------------------', 'blue'))
+    ca_cheese_pizza = ca_pizza_store.order_pizza("CheesePizza")
+    print(ca_cheese_pizza.prepare())
+    print(ca_cheese_pizza.bake())
+    print(ca_cheese_pizza.cut())
+    print(ca_cheese_pizza.box(),'\n')
+
+    print(colored('------------------- VEGGIE PIZZA ------------------', 'yellow'))
+    ca_veggie_pizza = ca_pizza_store.order_pizza("VeggiePizza")
+    print(ca_veggie_pizza.prepare())
+    print(ca_veggie_pizza.bake())
+    print(ca_veggie_pizza.cut())
+    print(ca_veggie_pizza.box(),'\n')
+
+    print(colored('-------------------- CLAM PIZZA -------------------', 'green'))
+    ca_clam_pizza = ca_pizza_store.order_pizza("ClamPizza")
+    print(ca_clam_pizza.prepare())
+    print(ca_clam_pizza.bake())
+    print(ca_clam_pizza.cut())
+    print(ca_clam_pizza.box(),'\n')
+
+    print(colored('----------------- PEPPERONI PIZZA -----------------', 'red'))
+    ca_pepperoni_pizza = ca_pizza_store.order_pizza("PepperoniPizza")
+    print(ca_pepperoni_pizza.prepare())
+    print(ca_pepperoni_pizza.bake())
+    print(ca_pepperoni_pizza.cut())
+    print(ca_pepperoni_pizza.box(),'\n')
