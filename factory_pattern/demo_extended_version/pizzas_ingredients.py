@@ -88,6 +88,9 @@ class FreshClams(Clams):
 
 class PizzaIngredient(ABC):
     def __init__(self, name: str)-> None:
+        if self.__class__ == PizzaIngredient:
+            raise TypeError("Instantiating the Abstract Class")
+
         self.name = name
 
     def get_name(self)-> str:
