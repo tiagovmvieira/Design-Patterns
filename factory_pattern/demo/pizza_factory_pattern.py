@@ -59,6 +59,8 @@ class CaliforniaStylePizzaStore(PizzaStore):
 
 class Pizza(ABC):
     def __init__(self, name: str)-> None:
+        if self.__class__ == Pizza:
+            raise TypeError("Instantiating the Abstract Class")
         self.name = name
 
     def get_name(self)-> str:
