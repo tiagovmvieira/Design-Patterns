@@ -90,7 +90,7 @@ class CeilingFan:
 
     def off(self)-> None:
         self.speed = self.speed_map.get("OFF")
-        print(f"{self.location.upper()}: The ceiling fan is off")
+        print(f"{self.location.upper()}: The ceiling fan is off!")
 
     def get_speed(self)-> int:
         return self.speed
