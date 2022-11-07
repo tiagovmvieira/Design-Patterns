@@ -73,6 +73,9 @@ class StereoOnWithCDCommand(Command):
         self.stereo.set_CD()
         self.stereo.set_volume(11)
 
+    def undo(self):
+        self.stereo.off()
+
 class StereoOnWithDVDCommand(Command):
     def __init__(self, stereo: Stereo):
         self.stereo = stereo
