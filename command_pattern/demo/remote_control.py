@@ -10,7 +10,7 @@ class SimpleRemoteControl:
     def button_was_pressed(self)-> None:
         self.slot.execute()
 
-class SimpleRemoteControl:
+class RemoteControl:
     def __init__(self, no_of_slots: int, no_command: NoCommand = NoCommand())-> None:
         self.no_of_slots = no_of_slots
         self.on_commands: list = [no_command] * self.no_of_slots
