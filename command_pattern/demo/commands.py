@@ -263,3 +263,26 @@ class CeilingFanOffCommand(Command):
             self.ceiling_fan.low()
         else:
             self.ceiling_fan.off()
+
+class HottubOnCommand(Command):
+    def __init__(self, hottub: Hottub):
+        self.hottub = hottub
+
+    def execute(self):
+        self.hottub.on()
+        self.hottub.set_temperature(104)
+        self.hottub.circulate()
+
+    def undo(self):
+        self.hottub.off()
+
+class HottubOffCommand(Command):
+    def __init__(self, hottub: Hottub):
+        self.hottub = hottub
+
+    def execute(self):
+        self.hottub.set_temperature(98)
+        self.hottub.off()
+
+    def undo(self):
+        self.hottub.on()
