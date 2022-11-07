@@ -15,7 +15,8 @@ class SimpleRemoteControl:
             on_command = self.on_commands[i].__class__.__name__
             off_command = self.on_commands[i].__class__.__name__
             string_buffer.append("[slot " + str(i) + "] " + on_command + "    " + off_command + "\n")
-
+        
+        string_buffer.append("[undo] " + self.undo_command.__class__.__name__)
         return " ".join(str(e) for e in string_buffer)
 
     def set_command(self, slot_index: int, on_command: Command, off_command: Command)-> None:
