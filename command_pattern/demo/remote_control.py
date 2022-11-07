@@ -1,13 +1,23 @@
 from commands import *
 
 class SimpleRemoteControl:
+    def __init__(self)-> None:
+        pass
+
+    def set_command(self, command: Command)-> None:
+        self.slot = command
+
+    def button_was_pressed(self)-> None:
+        self.slot.execute()
+
+class SimpleRemoteControl:
     def __init__(self, no_of_slots: int, no_command: NoCommand = NoCommand())-> None:
         self.no_of_slots = no_of_slots
         self.on_commands: list = [no_command] * self.no_of_slots
         self.off_commands: list = [no_command] * self.no_of_slots
         self.undo_command : Command = no_command
 
-    def __str__(self):
+    def __str__(self)-> str:
         string_buffer: list = []
         string_buffer.append("\n------------- Remote Control --------------\n")
 
