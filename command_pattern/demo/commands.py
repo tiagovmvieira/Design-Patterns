@@ -49,6 +49,9 @@ class StereoOnCommand(Command):
     def execute(self):
         self.stereo.on()
 
+    def undo(self):
+        self.stereo.off()
+
 class StereoOnWithCDCommand(Command):
     def __init__(self, stereo: Stereo):
         self.stereo = stereo
@@ -83,12 +86,18 @@ class StereoOffCommand(Command):
     def execute(self):
         self.stereo.off()
 
+    def undo(self):
+        self.stereo.on()
+
 class GarageDoorOpenCommand(Command):
     def __init__(self, garage_door: GarageDoor):
         self.garage_door = garage_door
 
     def execute(self):
         self.garage_door.up()
+
+    def undo(self):
+        self.garage_door.down()
 
 class GarageDoorCloseCommand(Command):
     def __init__(self, garage_door: GarageDoor):
@@ -97,26 +106,35 @@ class GarageDoorCloseCommand(Command):
     def execute(self):
         self.garage_door.down()
 
+    def undo(self):
+        self.garage_door.up()
+
 class GarageDoorStopCommand(Command):
     def __init__(self, garage_door: GarageDoor):
         self.garage_door = garage_door
 
     def execute(self):
-        return self.garage_door.stop()
+        self.garage_door.stop()
 
 class GarageDoorLightOnCommand(Command):
     def __init__(self, garage_door: GarageDoor):
         self.garage_door = garage_door
 
     def execute(self):
-        return self.garage_door.light_on()
+        self.garage_door.light_on()
+
+    def undo(self):
+        self.garage_door.light_off()
 
 class GarageDoorLightOffCommand(Command):
     def __init__(self, garage_door: GarageDoor):
         self.garage_door = garage_door
 
     def execute(self):
-        return self.garage_door.light_off()
+        self.garage_door.light_off()
+
+    def undo(self):
+        self.garage_door.light_on()
 
 class TVOnCommand(Command):
     def __init__(self, tv: TV):
@@ -124,7 +142,10 @@ class TVOnCommand(Command):
 
     def execute(self):
         self.tv.on()
-        self.tv.set_input_channel()
+        self.tv.set_input_channel(3)
+
+    def undo(self):
+        self.tv.off()
 
 class TVOffCommand(Command):
     def __init__(self, tv: TV):
@@ -132,6 +153,9 @@ class TVOffCommand(Command):
 
     def execute(self):
         self.tv.off()
+    
+    def undo(self):
+        self.tv.on()
 
 class CeilingFanOnCommand(Command):
     def __init__(self, ceiling_fan: CeilingFan):
