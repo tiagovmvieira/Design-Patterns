@@ -96,6 +96,39 @@ class CeilingFan:
     def get_speed(self)-> int:
         return self.speed
 
+class Hottub:
+    def __init__(self, location: str)-> None:
+        self.location = location
+        self.is_on: bool = False
+        self.temperature: int = 0
+
+    def on(self):
+        self.is_on = True
+
+    def off(self):
+        self.is_on = False
+
+    def circulate(self)-> None:
+        if self.on:
+            print(f"{self.location.upper()}: Hottub is bubbling!")
+
+    def jets_on(self)-> None:
+        if self.on:
+            print(f"{self.location.upper()}: Hottub jets are on")
+
+    def jets_off(self)-> None:
+        if self.on:
+            print(f"{self.location.upper()}: Hottub jets are off")
+
+    def set_temperature(self, value: int)-> None:
+        if value > self.temperature:
+            print(f"{self.location.upper()}: Hottub is heating to a steaming {value} degrees")
+        elif value < self.temperature:
+            print(f"{self.location.upper()}: Hottub is cooling to {value} degrees")
+        else:
+            print(f"{self.location.upper()}: Nothing happens. Hottub is already at {value} degrees")
+        self.temperature = value
+
 class PartyMode:
     def __init__(self)-> None:
         pass
