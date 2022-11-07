@@ -50,8 +50,8 @@ class Stereo:
         print(f"{self.location.upper()}: Stereo volume set to {value}")
 
 class TV:
-    def __init__(self)-> None:
-        pass
+    def __init__(self, location: str)-> None:
+        self.location = location
 
     def on(self)-> None:
         print(f"{self.location.upper()}: The TV is on!")
@@ -59,8 +59,9 @@ class TV:
     def off(self)-> None:
         print(f"{self.location.upper()}: The TV is off!")
 
-    def set_input_channel(self)-> None:
-        print("The x")
+    def set_input_channel(self, input_channel: int)-> None:
+        self.input_channel = input_channel
+        print(f"{self.location.upper()}: TV channel is set for DVD")
 
     def set_volume(self, value: int)-> None:
         print(f"{self.location.upper()}: TV volume set to {value}")
