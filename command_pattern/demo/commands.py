@@ -12,6 +12,18 @@ class Command(ABC):
     def undo(self):
         pass 
 
+class MacroComand(Command):
+    def __init__(self, commands: list):
+        self.commands = commands
+
+    def execute(self):
+        for i in range(len(self.commands)):
+            self.commands[i].execute()
+
+    def undo(self):
+        for i in range(len(self.commands)):
+            self.commands[i].undo()
+
 class NoCommand(Command):
     def __init__(self)-> None:
         pass
