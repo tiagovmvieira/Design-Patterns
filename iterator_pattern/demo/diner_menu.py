@@ -21,7 +21,7 @@ class DinerMenuIterator(Iterator):
         else:
             raise StopIteration()
 
-class DinerMenu:
+class DinerMenu(Iterable):
     def __init__(self):
         self.MAX_ITEMS: Final[int] = 6
         self.number_of_items: int = 0
@@ -31,6 +31,8 @@ class DinerMenu:
         self._add_item("BLT", "Bacon with lettuce & tomato on whole wheat", False, 2.99)
         self._add_item("Soup of the day", "Soup of the day, with a side of potato salad", False, 3.29)
         self._add_item("Hotdog", "A hot dog, with sauerkraut, relish, onions, topped with cheese", False, 3.05)
+        self._add_item("Steamed Veggies and Brown Rice", "Steamed vegetables over brown rice", True, 3.99)
+        self._add_item("Pasta", "Spaghetti with marinara sauce, and a slice of sourdough bread", False, 3.89)
 
         self.position: int = 0
 
