@@ -1,5 +1,5 @@
-from diner_menu import DinerMenu
-from pancake_house_menu import PancakeHouseMenu
+from diner_menu import DinerMenu, DinerMenuIterator
+from pancake_house_menu import PancakeHouseMenu, PancakeHouseMenuIterator
 
 class Waitress:
     def __init__(self, pancake_house_menu: PancakeHouseMenu = PancakeHouseMenu(), diner_menu: DinerMenu = DinerMenu()):
@@ -8,6 +8,10 @@ class Waitress:
 
     def print_menu(self):
         print("MENU\n----\nBREAKFAST")
-        print(*self.pancake_house_menu, sep='\n')
+        self.print_detailed_menu(PancakeHouseMenuIterator(self.pancake_house_menu.menu_items))
         print('\nLUNCH')
-        print(*self.diner_menu, sep='\n')
+        self.print_detailed_menu(DinerMenuIterator(self.diner_menu.menu_items))
+
+    def print_detailed_menu(self, iterator):
+        for menu_item in iterator:
+            print(menu_item.get_name() + ", " + str(menu_item.get_price()) + " -- " + menu_item.get_description())
