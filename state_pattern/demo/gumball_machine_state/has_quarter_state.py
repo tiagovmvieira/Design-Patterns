@@ -1,3 +1,4 @@
+import random
 from state import State
 
 class HasQuarterState(State):
@@ -13,7 +14,11 @@ class HasQuarterState(State):
 
     def turn_cranck(self):
         print("You turned...")
-        self.gumball_machine.set_state(self.gumball_machine._get_sold_state())
+        winner = random.randrange(10)
+        if winner == 0 and self.gumball_machine._get_count() > 1:
+            self.gumball_machine.set_state(self.gumball_machine._get_winner_state())
+        else:
+            self.gumball_machine.set_state(self.gumball_machine._get_sold_state())
 
     def dispense(self):
         print("You need need to turn the crank")
