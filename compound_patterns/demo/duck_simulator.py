@@ -5,7 +5,7 @@ from ducks.rubber_duck import RubberDuck
 from ducks.goose_duck import GooseDuck
 
 from quackable import Quackable
-from goose_adapter import GooseAdapter
+from goose_adapter import GooseDuckAdapter
 
 class DuckSimulator:
     def __init__(self)-> None:
@@ -17,7 +17,7 @@ class DuckSimulator:
             self.red_head_duck: Quackable = RedHeadDuck()
             self.duck_call: Quackable = DuckCall()
             self.rubber_duck: Quackable = RubberDuck()
-            self.goose_duck: Quackable = GooseAdapter(GooseDuck())
+            self.goose_duck: Quackable = GooseDuckAdapter(GooseDuck())
 
             print("\nDuck Simulator")
             self.simulate(self.mallard_duck)
