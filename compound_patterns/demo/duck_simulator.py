@@ -1,32 +1,33 @@
 from decorator.quack_counter import QuackCounter
 from quackable import Quackable
 
-from ducks.mallard_duck import MallardDuck
-from ducks.red_head_duck import RedHeadDuck
-from ducks.duck_call import DuckCall
-from ducks.rubber_duck import RubberDuck
 from ducks.goose_duck import GooseDuck
 
 from adapter.goose_adapter import GooseDuckAdapter
+
+from factory.abstract_duck_factory import AbstractDuckFactory
 
 class DuckSimulator:
     def __init__(self)-> None:
         pass
 
-    def simulate(self, duck: Quackable = None):
-        if duck is None:
-            self.mallard_duck: Quackable = QuackCounter(MallardDuck())
-            self.red_head_duck: Quackable = QuackCounter(RedHeadDuck())
-            self.duck_call: Quackable = QuackCounter(DuckCall())
-            self.rubber_duck: Quackable = QuackCounter(RubberDuck())
+    def simulate(self, duck_factory: AbstractDuckFactory, duck: Quackable = None)-> None:
+        if duck is None and duck_factory is not None:
+            self.duck_factory = duck_factory
+
+            self.mallard_duck: Quackable = self.duck_factory.create_mallard_duck()
+            self.red_head_duck: Quackable = self.duck_factory.create_red_head_duck()
+            self.duck_call: Quackable = self.duck_factory.create_duck_call()
+            self.rubber_duck: Quackable = self.duck_factory.create_rubber_duck()
             self.goose_duck: Quackable = GooseDuckAdapter(GooseDuck())
 
             print("\nDuck Simulator")
-            self.simulate(self.mallard_duck)
-            self.simulate(self.red_head_duck)
-            self.simulate(self.duck_call)
-            self.simulate(self.rubber_duck)
-            self.simulate(self.goose_duck)
+            duck_factory=None
+            self.simulate(duck_factory, self.mallard_duck)
+            self.simulate(duck_factory, self.red_head_duck)
+            self.simulate(duck_factory, self.duck_call)
+            self.simulate(duck_factory, self.rubber_duck)
+            self.simulate(duck_factory, self.goose_duck)
 
             print("The ducks quacked " + str(QuackCounter.get_quacks()) + " times")
         else:
