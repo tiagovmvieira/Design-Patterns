@@ -1,4 +1,4 @@
-from ..quackable import Quackable
+from quackable import Quackable
 
 class DecoyDuck(Quackable):
     def __init__(self):
