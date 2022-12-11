@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-import song_group
-
 class SongComponent(ABC):
     @abstractmethod
     def __init__(self):
@@ -9,23 +7,28 @@ class SongComponent(ABC):
             raise TypeError("Instantiating the Abstract Class")
 
     def add(self):
-        if self.__class__ == SongComponent:
-            raise AttributeError("This method should not be implemented on a SongComponent class")
+        from song import Song #avoid circular imports
+        if self.__class__ == Song:
+            raise AttributeError("This method should not be implemented on a Song class")
 
     def remove(self):
-        if self.__class__ == SongComponent:
-            raise AttributeError("This method should not be implemented on a SongComponent class")
+        from song import Song #avoid circular imports
+        if self.__class__ == Song:
+            raise AttributeError("This method should not be implemented on a Song class")
 
     def get_song_name(self)-> str:
-        if self.__class__ == song_group.SongGroup:
+        from song_group import SongGroup #avoid circular imports
+        if self.__class__ == SongGroup:
             raise AttributeError("This method should not be implemented on a SongGroup class")
 
     def get_band_name(self)-> str:
-        if self.__class__ == song_group.SongGroup:
+        from song_group import SongGroup #avoid circular imports
+        if self.__class__ == SongGroup:
             raise AttributeError("This method should not be implemented on a SongGroup class")
 
     def get_release_year(self)-> str:
-        if self.__class__ == song_group.SongGroup:
+        from song_group import SongGroup #avoid circular imports
+        if self.__class__ == SongGroup:
             raise AttributeError("This method should not be implemented on a SongGroup class")
 
     @abstractmethod
