@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+import song_group
+
 class SongComponent(ABC):
     @abstractmethod
     def __init__(self):
@@ -15,16 +17,16 @@ class SongComponent(ABC):
             raise AttributeError("This method should not be implemented on a SongComponent class")
 
     def get_song_name(self)-> str:
-        if self.__class__ == SongComponent:
-            raise AttributeError("This method should not be implemented on a SongComponent class")
+        if self.__class__ == song_group.SongGroup:
+            raise AttributeError("This method should not be implemented on a SongGroup class")
 
     def get_band_name(self)-> str:
-        if self.__class__ == SongComponent:
-            raise AttributeError("This method should not be implemented on a SongComponent class")
+        if self.__class__ == song_group.SongGroup:
+            raise AttributeError("This method should not be implemented on a SongGroup class")
 
     def get_release_year(self)-> str:
-        if self.__class__ == SongComponent:
-            raise AttributeError("This method should not be implemented on a SongComponent class")
+        if self.__class__ == song_group.SongGroup:
+            raise AttributeError("This method should not be implemented on a SongGroup class")
 
     @abstractmethod
     def display_song_info(self)-> None:
