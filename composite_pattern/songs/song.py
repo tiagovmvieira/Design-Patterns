@@ -17,4 +17,4 @@ class Song(SongComponent):
         return self.release_year
 
     def display_song_info(self)-> None:
-        print(self.get_song_name() + " was recorded by " + self.get_band_name() + " in " + self.get_release_year())
+        print(self.get_song_name() + " was recorded by " + self.get_band_name() + " in " + str(self.get_release_year()))
