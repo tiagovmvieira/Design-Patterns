@@ -1,4 +1,5 @@
 from quackable import Quackable
+from observer.observer import Observer
 
 class QuackableComponent():
     def __init__(self, duck: Quackable):
@@ -22,5 +23,15 @@ class QuackCounter(QuackableComponent):
         QuackCounter._number_of_quacks += 1
 
     @staticmethod
+    def reset_number_of_quacks()-> None:
+        QuackCounter._number_of_quacks = 0
+
+    @staticmethod
     def get_quacks()-> int:
         return QuackCounter._number_of_quacks
+
+    def notify_observers(self)-> None:
+        self.quackable_component.notify_observers()
+
+    def register_observer(self, observer: Observer)-> None:
+        self.quackable_component.register_observer(observer)
