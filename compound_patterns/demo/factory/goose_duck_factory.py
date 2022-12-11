@@ -9,5 +9,3 @@ class GooseDuckFactory:
 
     def create_goose_duck(self)-> Quackable:
         return GooseDuckAdapter(GooseDuck())
-
-    
