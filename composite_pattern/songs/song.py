@@ -1,6 +1,9 @@
 from song_component import SongComponent
 
 class Song(SongComponent):
+    get_song_name, get_band_name, get_release_year = 'yes', 'yes', 'yes'
+    add, remove, get_group_name, get_group_description, get_component_index = 'no', 'no', 'no', 'no', 'no'
+
     def __init__(self, song_name: str, band_name: str, release_year: int):
         super().__init__()
         self.song_name = song_name

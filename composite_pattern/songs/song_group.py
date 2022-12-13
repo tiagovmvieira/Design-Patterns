@@ -18,6 +18,9 @@ class SongGroupIterator(Iterator):
         return song_component
 
 class SongGroup(SongComponent, Iterable):
+    add, remove, get_group_name, get_group_description, get_component_index = 'yes', 'yes', 'yes', 'yes', 'yes'
+    get_song_name, get_band_name, get_release_year = 'no', 'no', 'no'
+
     def __init__(self, group_name: str, group_description: str):
         super().__init__()
         self.song_components: List[SongComponent] = []
