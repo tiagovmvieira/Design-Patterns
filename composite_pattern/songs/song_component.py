@@ -1,3 +1,4 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 
 class SongComponent(ABC):
@@ -6,32 +7,45 @@ class SongComponent(ABC):
         if self.__class__ == SongComponent:
             raise TypeError("Instantiating the Abstract Class")
 
-    def add(self):
-        from song import Song #avoid circular imports
-        if self.__class__ == Song:
-            raise AttributeError("This method should not be implemented on a Song class")
-
-    def remove(self):
-        from song import Song #avoid circular imports
-        if self.__class__ == Song:
-            raise AttributeError("This method should not be implemented on a Song class")
-
-    def get_song_name(self)-> str:
-        from song_group import SongGroup #avoid circular imports
-        if self.__class__ == SongGroup:
-            raise AttributeError("This method should not be implemented on a SongGroup class")
-
-    def get_band_name(self)-> str:
-        from song_group import SongGroup #avoid circular imports
-        if self.__class__ == SongGroup:
-            raise AttributeError("This method should not be implemented on a SongGroup class")
-
-    def get_release_year(self)-> str:
-        from song_group import SongGroup #avoid circular imports
-        if self.__class__ == SongGroup:
-            raise AttributeError("This method should not be implemented on a SongGroup class")
-
+    @property
     @abstractmethod
+    def add(self)-> None:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def remove(self, song_component: SongComponent)-> None:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def get_group_name(self)-> str:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def get_group_description(self)-> str:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def get_component_index(self)-> int:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def get_song_name(self)-> str:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def get_band_name(self)-> str:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def get_release_year(self)-> int:
+        raise NotImplementedError
+
     def display_song_info(self)-> None:
-        if self.__class__ == SongComponent:
-            raise AttributeError("This method should not be implemented on a SongComponent class")
+        pass
