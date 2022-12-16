@@ -24,4 +24,4 @@ class MenuItem(MenuComponent):
         return self.vegetarian
 
     def print(self):
-        print(" ", self.get_name(), "(v)" if self.is_vegetarian else "", ", " + str(self.get_price()), "     -- " + self.get_description())
+        print(" ", self.get_name(), "(v)" if self.is_vegetarian() else "", ", " + str(self.get_price()), "\n     -- " + self.get_description())
