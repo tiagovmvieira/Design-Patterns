@@ -27,8 +27,7 @@ class Menu(MenuComponent):
         return self.description
 
     def print(self)-> None:
-        print("\n" + self.get_name())
-        print(", " + self.get_description())
+        print("\n" + self.get_name(),", " + self.get_description())
         print("---------------------")
 
         for menu_component in self.menu_components:
