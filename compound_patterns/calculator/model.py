@@ -14,23 +14,28 @@ class Model:
         elif caption == '+/-':
             self.value = str(int(self.value) * -1)
         elif caption == '%':
-            self.value = str(int(self.value) / 100)
+            value = float(self.value) if '.' in self.value else int(self.value)
+
+            self.value = str(value / 100)
         elif caption == '.':
             if not caption in self.value:
                 self.value += caption
         elif caption == '=':
-            self.value = str(self._evaluate())
+            value = self._evaluate()
 
+            if '.0' in str(value):
+                value = int(value)
+            
+            self.value = str(value)
         elif isinstance(caption, int):
             self.value += str(caption)
         else:
             if self.value:
-                if caption == '/' and isinstance(self.value, int):
-                    self.operator = caption
-                    self.previous_value = self.value
+                self.operator = caption
+                self.previous_value = self.value
                 self.value = ''
 
         return self.value
 
-    def _evaluate(self)-> float:
+    def _evaluate(self)->Union[int, float]:
         return eval(self.previous_value + self.operator + self.value)
