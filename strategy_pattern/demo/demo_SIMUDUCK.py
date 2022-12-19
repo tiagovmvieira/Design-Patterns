@@ -2,140 +2,72 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from termcolor import colored
 
-class Duck():
-    def __init__(self, fly_behaviour: FlyBehaviour, quack_behaviour: QuackBehaviour):
-        self.fly_behaviour = fly_behaviour
-        self.quack_behaviour = quack_behaviour
+from ducks import mallard_duck, decoy_duck, red_head_duck, rubber_duck, duck
+from behaviours import fly_no_way, fly_rocket_powered, fly_with_wings, mute_quack, quack, squeak
+from interfaces import fly_behaviour, quack_behaviour
 
-    def display()-> str:
-        pass
+class StrategyPatternTestDrive:
+    def __init__(self)-> None:
+        print(colored('-------------------- MALLARD DUCK -------------------', 'red'))
+        self._test_mallard_duck()
+        print(colored('------------------- RED HEAD DUCK -------------------', 'blue'))
+        self._test_red_head_duck()
+        print(colored('-------------------- RUBBER DUCK --------------------', 'green'))
+        self._test_rubber_duck()
+        print(colored('-------------------- DECOY DUCK ---------------------', 'yellow'))
+        self._test_decoy_duck()
 
-    def swim(self)-> str:
-        return 'All ducks float, even decoys!'
+    def _test_mallard_duck(self)-> None:
+        self.mallard_duck = mallard_duck.MallardDuck(fly_with_wings.FlyWithWings, quack.Quack)
+        print(self.mallard_duck.display())
+        print(self.mallard_duck.swim())
+        print(self.mallard_duck.perform_fly())
+        print(self.mallard_duck.perform_quack())
 
-    def set_fly_behaviour(self, fly_behaviour: FlyBehaviour):
-        self.fly_behaviour = fly_behaviour
+        self._set_duck_fly_behaviour(self.mallard_duck, fly_rocket_powered.FlyRocketPowered)
+        
+        print(self.mallard_duck.perform_fly())
+        print(self.mallard_duck.perform_quack())
 
-    def set_quack_behaviour(self, quack_behaviour: QuackBehaviour):
-        self.quack_behaviour = quack_behaviour
-    
-    def perform_quack(self):
-        return self.quack_behaviour.quack(self)
+    def _test_red_head_duck(self)-> None:
+        self.red_head_duck = red_head_duck.RedHeadDuck(fly_with_wings.FlyWithWings, quack.Quack)
+        print(self.red_head_duck.display())
+        print(self.red_head_duck.swim())
+        print(self.red_head_duck.perform_fly())
+        print(self.red_head_duck.perform_quack())
 
-    def perform_fly(self):
-        return self.fly_behaviour.fly(self)
+        self._set_duck_fly_behaviour(self.red_head_duck, fly_no_way.FlyNoWay)
+        print(self.red_head_duck.perform_fly())
+        print(self.red_head_duck.perform_quack())
 
-class FlyBehaviour(ABC):
-    @abstractmethod
-    def fly(self):
-        pass
+    def _test_rubber_duck(self)-> None:
+        self.rubber_duck = rubber_duck.RubberDuck(fly_no_way.FlyNoWay, squeak.Squeak)
+        print(self.rubber_duck.display())
+        print(self.rubber_duck.swim())
+        print(self.rubber_duck.perform_fly())
+        print(self.rubber_duck.perform_quack())
 
-class FlyWithWings(FlyBehaviour):
-    def __init__(self):
-        pass
+        self._set_duck_quack_behaviour(self.rubber_duck, mute_quack.MuteQuack)
+        print(self.rubber_duck.perform_fly())
+        print(self.rubber_duck.perform_quack())
 
-    def fly(self):
-        return 'I am flying'
+    def _test_decoy_duck(self)-> None:
+        self.decoy_duck = decoy_duck.DecoyDuck(fly_no_way.FlyNoWay, mute_quack.MuteQuack)
+        print(self.decoy_duck.display())
+        print(self.decoy_duck.swim())
+        print(self.decoy_duck.perform_fly())
+        print(self.decoy_duck.perform_quack())
 
-class FlyRocketPowered(FlyBehaviour):
-    def __init__(self):
-        pass
+        self._set_duck_fly_behaviour(self.decoy_duck, quack.Quack)
 
-    def fly(self):
-        return 'I am flying with a rocket'
+    @staticmethod
+    def _set_duck_fly_behaviour(duck: duck.Duck, fly_behaviour: fly_behaviour.FlyBehaviour)-> None:
+        duck.set_fly_behaviour(fly_behaviour)
 
-class FlyNoWay(FlyBehaviour):
-    def __init__(self):
-        pass
-
-    def fly(self):
-        return "I can't fly"
-
-# quack behaviour interface
-class QuackBehaviour(ABC):
-    @abstractmethod
-    def quack(self):
-        pass
-
-class Quack(QuackBehaviour):
-    def __init__(self):
-        pass
-
-    def quack(self):
-        return 'I am duck quacking'
-
-class Squeak(QuackBehaviour):
-    def __init__(self):
-        pass
-
-    def quack(self):
-        return 'I am rubber duckie squeaking'
-
-class MuteQuack(QuackBehaviour):
-    def __init__(self):
-        pass
-
-    def quack(self):
-        return "I can't quack"
-
-class MallardDuck(Duck):
-    def __init__(self, fly_behaviour, quack_behaviour):
-        super().__init__(fly_behaviour, quack_behaviour)
-
-    def display(self)-> str:
-        return 'Looks like a Mallard!'
-
-class RedHeadDuck(Duck):
-    def __init__(self, fly_behaviour, quack_behaviour):
-        super().__init__(fly_behaviour, quack_behaviour)
-
-    def display(self)-> str:
-        return 'Looks like a Red Head!'
-
-class RubberDuck(Duck):
-    def __init__(self, fly_behaviour, quack_behaviour):
-        super().__init__(fly_behaviour, quack_behaviour)
-
-    def display(self)-> str:
-        return 'Looks like a Rubber Duck!'
-
-class DecoyDuck(Duck):
-    def __init__(self, fly_behaviour, quack_behaviour):
-        super().__init__(fly_behaviour, quack_behaviour)
-
-    def display(self)-> str:
-        return 'Looks like a Decoy Duck!'
+    @staticmethod
+    def _set_duck_quack_behaviour(duck: duck.Duck, quack_behaviour: quack_behaviour.QuackBehaviour)-> None:
+        duck.set_quack_behaviour(quack_behaviour)
 
 if __name__ == '__main__':
     print(colored('----------------- STRATEGY PATTERN ----------------', 'white'))
-    print(colored('-------------------- MALLARD DUCK -------------------', 'red'))
-    mallard_duck = MallardDuck(FlyWithWings, Quack)
-    print(mallard_duck.display())
-    print(mallard_duck.swim())
-    print(mallard_duck.perform_fly())
-    mallard_duck.set_fly_behaviour(FlyRocketPowered)
-    print(mallard_duck.perform_fly())
-    print(mallard_duck.perform_quack())
-
-    print(colored('------------------- RED HEAD DUCK -------------------', 'blue'))
-    red_head_duck = RedHeadDuck(FlyWithWings,Quack)
-    print(red_head_duck.display())
-    print(red_head_duck.swim())
-    red_head_duck.set_fly_behaviour(FlyNoWay)
-    print(red_head_duck.perform_fly())
-    print(red_head_duck.perform_quack())
-
-    print(colored('-------------------- RUBBER DUCK --------------------', 'green'))
-    rubber_duck = RubberDuck(FlyNoWay, Squeak)
-    print(rubber_duck.display())
-    print(rubber_duck.swim())
-    rubber_duck.set_fly_behaviour(FlyRocketPowered)
-    print(rubber_duck.perform_fly())
-    print(rubber_duck.perform_quack())
-
-    print(colored('-------------------- DECOY DUCK ---------------------', 'yellow'))
-    decoy_duck = DecoyDuck(FlyNoWay, MuteQuack)
-    print(decoy_duck.display())
-    print(decoy_duck.swim())
-    print(decoy_duck.perform_fly())
-    print(decoy_duck.perform_quack())
+    strategy_pattern_test_drive = StrategyPatternTestDrive()
