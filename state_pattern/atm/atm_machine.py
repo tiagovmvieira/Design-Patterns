@@ -38,6 +38,9 @@ class ATMMachine:
     def request_cash(self, cash_to_withdraw: int)-> None:
         self._atm_state.request_cash(cash_to_withdraw)
 
+    def deposit_cash(self, cash_to_deposit: int)-> None:
+        self._atm_state.deposit_cash(cash_to_deposit)
+
     def insert_pin(self, pin_entered: int)-> None:
         self._atm_state.insert_pin(pin_entered)
 
