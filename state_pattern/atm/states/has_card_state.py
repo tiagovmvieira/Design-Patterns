@@ -26,3 +26,6 @@ class HasCardState(ATMState):
 
     def request_cash(self, cash_to_withdraw: int)-> None:
         print("Enter PIN first!")
+
+    def deposit_cash(self, cash_to_deposit: int) -> None:
+        print("Enter PIN first!")

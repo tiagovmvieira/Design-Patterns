@@ -16,3 +16,7 @@ class ATMState(ABC):
     @abstractmethod
     def request_cash(self, cash_to_withdraw: int)-> None:
         pass
+
+    @abstractmethod
+    def deposit_cash(self, cash_to_deposit: int)-> None:
+        pass

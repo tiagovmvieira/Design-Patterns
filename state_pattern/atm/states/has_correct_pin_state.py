@@ -30,3 +30,14 @@ class HasCorrectPinState(ATMState):
 
             if self._atm_machine._cash_in_machine <= 0:
                 self._atm_machine.set_atm_state(self._atm_machine._get_out_of_money_state())
+
+    def deposit_cash(self, cash_to_deposit: int)-> None:
+        if cash_to_deposit > 0:
+            print(f"{cash_to_deposit} is deposited on the machine")
+            self._atm_machine.set_cash_in_machine(self._atm_machine._cash_in_machine + cash_to_deposit)
+
+            print("Card Ejected")            
+        else:
+            print("Error. Card Ejected")
+
+        self._atm_machine.set_atm_state(self._atm_machine._get_has_card_state())
