@@ -25,6 +25,8 @@ class TestATMMachine:
         print(colored('-------------------- INSERT PIN ---------------------', 'green'))
         self.atm_machine.insert_pin(1234)
 
+        print(colored('-------------------- INSERT CASH --------------------', 'yellow'))
+        self.atm_machine.deposit_cash(100)
 
 if __name__ == '__main__':
     print(colored('-------------------- STATE PATTERN ------------------', 'white'))
